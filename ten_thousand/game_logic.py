@@ -9,10 +9,8 @@ class GameLogic:
     @staticmethod
     def roll_dice(num_dice):
         """Roll dice.
-
         Args:
             num_dice (int): Number of dice to roll, between 1 and 6.
-
         Returns:
             tuple: A tuple of integers representing the result of each dice roll.
         """
@@ -20,13 +18,12 @@ class GameLogic:
         # Each integer represents the outcome of one dice roll.
         return tuple(random.randint(1, 6) for _ in range(num_dice))
 
+
     @staticmethod
     def calculate_score(dice_roll):
         """Calculate the score for a given dice roll in the game Ten Thousand.
-
         Args:
             dice_roll (tuple): A tuple of integers representing a dice roll.
-
         Returns:
             int: The calculated score based on the rules of the game.
         """
@@ -56,6 +53,47 @@ class GameLogic:
                 score += count * 50  # 50 points for each single five
 
         return score
+
+
+    @staticmethod
+    def calculate_score_and_scoring_dice(dice_roll):
+        """Calculate the score for a given dice roll in the game Ten Thousand and return scoring dice.
+        Args:
+            dice_roll (tuple): A tuple of integers representing a dice roll.
+        Returns:
+            tuple: A tuple containing the score and a list of integers representing the scoring dice.
+        """
+        score = 0
+        scoring_dice = []
+        dice_count = Counter(dice_roll)
+
+        # Check for straight, three pairs, and six of a kind (instant win)
+        if len(dice_count) == 6:
+            return 1500, list(dice_roll)  # Straight
+        if len(dice_count) == 3 and all(count == 2 for count in dice_count.values()):
+            return 1500, list(dice_roll)  # Three pairs
+
+        # Scoring for multiples and single ones or fives
+        for num, count in dice_count.items():
+            if count >= 3:
+                if num == 1:
+                    # For three or more ones
+                    multiplier = count - 2
+                    score += 1000 * multiplier
+                    scoring_dice.extend([1] * count)
+                else:
+                    # For other numbers
+                    multiplier = (count - 2) * 100
+                    score += num * multiplier
+                    scoring_dice.extend([num] * count)
+            elif num == 1 and count <= 2:
+                score += count * 100  # 100 points for each single one
+                scoring_dice.extend([1] * count)
+            elif num == 5 and count <= 2:
+                score += count * 50  # 50 points for each single five
+                scoring_dice.extend([5] * count)
+
+        return score, scoring_dice
 
 if __name__ == "__main__":
     # Roll six dice
