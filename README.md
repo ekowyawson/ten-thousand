@@ -74,7 +74,7 @@ This program showcases an adaptation of the game **Dice 10000**: a family dice g
 
 - [x] Document every single line of code with a detailed description of what the code is doing.
 
-#### Tests
+### Tests
 
 - [x] Run the provided tests against the code that you obtained from ai.
 
@@ -103,3 +103,13 @@ This program showcases an adaptation of the game **Dice 10000**: a family dice g
 
 - [ ] Research parametrized tests in PyTest
 - [ ] Research Behavior Driven Development
+
+#### Version 2 Tests
+
+**Testing - Roll Dice**:
+
+- [x] Application should implement all features from previous version
+- [x] Application should allow user to set aside dice each roll
+- [x] Application should allow “banking” current score or rolling again.
+- [x] Application should keep track of total score
+- [x] Application should keep track of current round
