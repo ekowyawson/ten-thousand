@@ -1,6 +1,20 @@
 from ten_thousand.game_logic import GameLogic
 # from game_logic import GameLogic
 
+def validate_lists(scoring_dice, kept_dice_list):
+    for item in scoring_dice:
+        try:
+            kept_dice_list.remove(item)
+        except ValueError:
+            print("Cheater!!! Or possibly made a typo...")
+            return False
+    
+    if kept_dice_list:
+        print("Cheater!!! Or possibly made a typo...")
+        return False
+    
+    return True
+
 def play(roller=None):
     roller = roller or GameLogic.roll_dice
     total_score = 0
@@ -37,21 +51,25 @@ def play(roller=None):
                     print(f"Thanks for playing. You earned {total_score} points")
                     return
 
+                kept_dice_list = list(map(int, kept_dice))
                 kept_dice = tuple(map(int, kept_dice.split(',')))
 
                 # Validate the kept dice
-                # valid_kept_dice = all(die in scoring_dice for die in kept_dice)
+                valid_kept_dice = all(die in scoring_dice for die in kept_dice_list)
 
-                valid_kept_dice = True # FIX ME!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
                 if valid_kept_dice:
                     dice_kept.extend(kept_dice)
-                    dice_to_roll -= len(kept_dice)
+                    dice_to_roll -= len(kept_dice_list)
                     round_score += roll_score
 
+                    if dice_to_roll == 0:  # Check if any dice are left to roll
+                        dice_to_roll = 6
+
                     print(f"You have {round_score} unbanked points and {dice_to_roll} dice remaining")
-                # else:
-                #     print("Invalid dice selection. Please choose from the scoring dice.")
+                else:
+                    print("Invalid dice selection. Please choose from the scoring dice.")
+                
             else:
                 print("No scoring dice. End of this round.")
                 break
