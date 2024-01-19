@@ -104,7 +104,7 @@ This program showcases an adaptation of the game **Dice 10000**: a family dice g
 - [ ] Research parametrized tests in PyTest
 - [ ] Research Behavior Driven Development
 
-#### Version 2 Tests
+#### Version 2 Requirements
 
 **Testing - Roll Dice**:
 
@@ -113,3 +113,16 @@ This program showcases an adaptation of the game **Dice 10000**: a family dice g
 - [x] Application should allow “banking” current score or rolling again.
 - [x] Application should keep track of total score
 - [x] Application should keep track of current round
+
+#### Version 3 Requirements
+
+**Testing - Roll Dice**:
+
+- [ ] Application should implement features from versions 1 and 2
+- [ ] Should handle setting aside scoring dice and continuing turn with remaining dice.
+- [ ] Should handle when cheating occurs.
+  - Or just typos.
+  - E.g. roll = `[1,3,5,2]` and user selects `1, 1, 1, 1, 1, 1`
+- [ ] Should allow user to continue rolling with 6 new dice when all dice have scored in current turn.
+- [ ] Handle zilch
+  - No points for round, and round is over
