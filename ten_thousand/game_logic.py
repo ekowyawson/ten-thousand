@@ -5,6 +5,11 @@ class GameLogic:
     """GameLogic class for the Ten Thousand dice game.
     It handles the core game mechanics like rolling dice and calculating scores.
     """
+    def __init__(self):
+       """Initializes round score and total score to 0."""
+       self.round_score = 0
+       self.total_score = 0
+
 
     @staticmethod
     def roll_dice(num_dice):
@@ -94,6 +99,61 @@ class GameLogic:
                 scoring_dice.extend([5] * count)
 
         return score, scoring_dice
+
+
+    @staticmethod
+    def confirm_keepers(scoring_dice, kept_dice, roll):
+        """Compares two lists (scoring dice and kept dice) and prompts the user if any kept dice is not found in scoring dice.
+        Args:
+            scoring_dice: The first list to compare.
+            kept_dice: The second list to compare.
+        Returns:
+            True: If all values in kept_dice are present in scoring_dice.
+            False: If any value in kept_dice is not present in scoring_dice.
+        """
+        if kept_dice.startswith('q'):
+            return 'q'
+        kept_dice = list(kept_dice.strip())
+        kept_dice = [item for item in kept_dice if item != ' ' and item != '']
+        kept_dice = list(map(int, kept_dice))
+        temp_scoring_dice = scoring_dice.copy()
+        for num in kept_dice:
+            if num in temp_scoring_dice:
+                temp_scoring_dice.remove(num)
+            else:
+                print("Cheater!!! Or possibly made a typo...")
+                print(f"*** {' '.join(map(str, roll))} ***")
+                kept_dice = input(f"Enter dice to keep, or (q)uit:\n> ").strip().lower()
+                return GameLogic.confirm_keepers(scoring_dice, kept_dice, roll)
+        return kept_dice
+
+
+    @staticmethod
+    def validate_keepers(roll, keepers):
+        # Convert tuple1 to a list for easier manipulation
+        temp_list1 = list(roll)
+        # Check each element in tuple2
+        for item in keepers:
+            if item in temp_list1:
+                # Remove one occurrence of the item from temp_list1
+                temp_list1.remove(item)
+            else:
+                # If the item is not in tuple1, return an error
+                return False
+        # If all items in tuple2 are in tuple1, return a success message
+        return True
+
+
+    def update_score(self, round_score):
+       """Updates round score and total score."""
+       self.round_score = round_score
+       self.total_score += round_score
+
+
+    def reset_round_score(self):
+       """Resets the round score to 0."""
+       self.round_score = 0
+
 
 if __name__ == "__main__":
     # Roll six dice
