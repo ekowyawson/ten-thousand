@@ -1,9 +1,9 @@
-# Lab: Class 07
+# Lab: Class 08
 
 ## Project: Ten Thousand
 
 **Author**: Ekow Yawson
-**Version**: 2.0.0
+**Version**: 3.0.0
 
 ### Links and Resources
 
@@ -21,11 +21,15 @@
 
 **Requirements:**
 
-- Install **pytest**: run `pip3 install pytest`
+- Create Python virtual environment with venv: `python3 -m venv .venv`
+- Enter venv virtual environment: `source .venv/bin/activate` and run `python3 -m ten_thousand.game`
 
 **Tests:**
 
-- To run all tests, run the following command at the root of the project:
+- Install **pytest**: run `pip3 install pytest`
+- Create Python virtual environment with venv: `python3 -m venv .venv`
+- Enter venv virtual environment: `source .venv/bin/activate`
+- Run all tests from the root of the project:
 
 ```bash
 python -m pytest
@@ -101,7 +105,7 @@ This program showcases an adaptation of the game **Dice 10000**: a family dice g
 
 #### Stretch
 
-- [ ] Research parametrized tests in PyTest
+- [x] Research parametrized tests in PyTest
 - [ ] Research Behavior Driven Development
 
 #### Version 2 Requirements
@@ -123,6 +127,6 @@ This program showcases an adaptation of the game **Dice 10000**: a family dice g
 - [x] Should handle when cheating occurs.
   - Or just typos.
   - E.g. roll = `[1,3,5,2]` and user selects `1, 1, 1, 1, 1, 1`
-- [ ] Should allow user to continue rolling with 6 new dice when all dice have scored in current turn.
-- [ ] Handle zilch
+- [x] Should allow user to continue rolling with 6 new dice when all dice have scored in current turn.
+- [x] Handle zilch
   - No points for round, and round is over

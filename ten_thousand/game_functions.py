@@ -1,3 +1,4 @@
+from ten_thousand.game_logic import GameLogic
 """
 Just the stub functions for ONE way to program Ten Thousand game.
 Note the emphasis on many small functions with well defined duties.
@@ -6,18 +7,16 @@ In other words, little to no global state.
 """
 
 def play(roller=None, num_rounds=20):
-    """
-    play Ten Thousand game
-
+    """play Ten Thousand game
     Args:
         roller: optional dice rolling function. Default is GameLogic.roll_dice
         num_rounds: optional number of rounds. Default of 20
-
     Returns:
         None
 
     """
-    pass
+    roller = roller or GameLogic.roll_dice
+    
 
 
 def invite_to_play():
@@ -29,24 +28,25 @@ def invite_to_play():
     pass
 
 
-def start_game(num_rounds):
-    """
-    Start the game and run for given number of rounds
+def start_game(num_rounds=20):
+    """Start the game and run for given number of rounds
     Args:
         num_rounds:
-
     Returns:
-        None
+        bool
     """
-    pass
-
+    print("Welcome to Ten Thousand")
+    start_answer = input(f"(y)es to play or (n)o to decline\n> ").strip().lower()
+    if not start_answer.startswith('y'):
+        print("OK. Maybe another time")
+        return False
+    else:
+        return True
 
 def do_round(round_num):
-    """
-    Play a round of the game
+    """Play a round of the game
     Args:
         round_num:
-
     Returns:
         integer for number of points scored in the round
         -1 has special meaning for "quit"
